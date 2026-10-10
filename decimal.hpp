@@ -53,6 +53,79 @@ class decimal {
 
         }
 
+        bool operator==(const decimal& num) {
+
+            bool result;
+
+            if (sign == num.sign && whole == num.whole && frac == num.frac) {
+                result = true;
+            } else {
+                result = false;
+            }
+
+            return result;
+        }
+
+        bool operator>(const decimal& num) {
+
+            bool result;
+
+            if (*this == num) {
+                result = false;
+            } else if (sign == 1 && num.sign == 0) {
+                result = true;
+            } else if (sign == 0 && num.sign == 1) {
+                result = false;
+            } else if (sign == num.sign && sign == 1) {
+                if (whole > num.whole) {
+                    result = true;
+                } else if (whole == num.whole && frac > num.frac) {
+                    result = true;
+                } else {
+                    result = false;
+                }
+            } else if (sign == num.sign && sign == 0) {
+                if (whole < num.whole) {
+                    result = true;
+                } else if (whole == num.whole && frac < num.frac) {
+                    result = true;
+                } else {
+                    result = false;
+                }
+            }
+
+        }
+
+        bool operator<(const decimal& num) {
+
+            bool result;
+
+            if (*this == num) {
+                result = false;
+            } else if (sign == 1 && num.sign == 0) {
+                result = false;
+            } else if (sign == 0 && num.sign == 1) {
+                result = true;
+            } else if (sign == num.sign && sign == 1) {
+                if (whole < num.whole) {
+                    result = true;
+                } else if (whole == num.whole && frac < num.frac) {
+                    result = true;
+                } else {
+                    result = false;
+                }
+            } else if (sign == num.sign && sign == 0) {
+                if (whole > num.whole) {
+                    result = true;
+                } else if (whole == num.whole && frac > num.frac) {
+                    result = true;
+                } else {
+                    result = false;
+                }
+            }
+
+        }
+
         decimal operator+(const decimal& num) {
 
             decimal result;
@@ -71,8 +144,24 @@ class decimal {
 
             } else if (sign == 1 && num.sign == 0) {
 
-                if () // continue here
+                if (*this > num) {
 
+                    decimal num1 = num;
+                    num1.sign = 1;
+                    result = this - num1; // currently undefined
+
+                } else if (*this < num) {
+
+                    decimal num1 = num;
+                    num1.sign = 1;
+                    result = num - this;
+                    result.sign = 0;
+
+                } else if (whole == num.whole && frac == num.frac) {
+                    result.whole = 0;
+                    result.frac = 0;
+                    result.sign = 1;
+                }
             }
 
             while (result.frac >= SCALE) {

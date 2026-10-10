@@ -49,7 +49,7 @@ int main(const int argc, const char* const argv[]) {
 
     for (int i = 1; i < argc; i++) {
 
-        if (argv[i] == "help" || argv[i] == "--help") {
+        if (argv[i] == "help" || argv[i] == "--help" || argv[i] == "-h") {
             helper();
             return 0;
         } 
