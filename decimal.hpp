@@ -94,6 +94,8 @@ class decimal {
                 }
             }
 
+            return result;
+
         }
 
         bool operator<(const decimal& num) {
@@ -124,6 +126,8 @@ class decimal {
                 }
             }
 
+            return result;
+
         }
 
         decimal operator+(const decimal& num) {
@@ -133,7 +137,7 @@ class decimal {
             if (sign == num.sign && sign == 1) {
 
                 result.whole = whole + num.whole;
-                result.frac = frac + num.whole;
+                result.frac = frac + num.frac;
                 result.sign = 1;
 
             } else if (sign == num.sign && sign == 0) {
@@ -148,7 +152,7 @@ class decimal {
 
                     decimal num1 = num;
                     num1.sign = 1;
-                    result = this - num1; // currently undefined
+                    result = *this - num1; // currently undefined
 
                 } else if (*this < num) {
 
@@ -172,7 +176,25 @@ class decimal {
             }
 
 
+            return result;
 
+        } 
+
+        decimal operator-(const decimal& num) {
+
+            decimal result;
+
+            if (sign == num.sign && sign == 1) {
+                if (*this > num) {
+
+                    
+
+                } else if (*this < num) {
+
+                }
+            }
+
+            return result;
 
         }
 
